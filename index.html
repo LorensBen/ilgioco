@@ -1,0 +1,481 @@
+
+  <script>
+    var password = prompt("Inserisci la password per accedere:");
+    if (password !== "0000") {
+      alert("Password errata!");
+      window.location.href = "https://www.google.com";
+    }
+  </script>
+
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trova il Luogo</title>
+    <style>
+        /* CSS personalizzato per il sito "Trova il Luogo" */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #000000;
+            color: #7a00fd;
+            text-align: center;
+            padding: 20px;
+        }
+        h1 {
+            color: #0080ff;
+            font-size: 5rem;
+            margin-bottom: 50px;
+        }
+        button {
+            background-color: #00147a;
+            color: rgb(0, 0, 0);
+            padding: 20px 30px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 2rem;
+            transition: background-color 0.3s;
+            display: block;
+            margin: 0 auto;
+        }
+        button:hover {
+            background-color: #00a6ff;
+        }
+        #audioSection, #audioSectionTappa2, #audioSectionTappa3, #audioSectionTappa4, #audioSectionTappa5, #audioSectionTappa6, #audioSectionTappa7 {
+            margin-top: 30px;
+            display: none;
+            background-color: #b648ff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        #audioPlayer {
+            margin-top: 20px;
+        }
+        #audioText, #audioTextTappa2, #audioTextTappa3, #audioTextTappa4, #audioTextTappa5, #audioTextTappa6, #audioTextTappa7 {
+            font-size: 1.5rem;
+            margin-top: 10px;
+            color: #34495e;
+            text-align: center;
+        }
+        #userInput, #userInputTappa2, #userInputTappa3, #userInputTappa4, #userInputTappa5, #userInputTappa6, #userInputTappa7 {
+            margin-top: 20px;
+            padding: 10px;
+            font-size: 1.1rem;
+            border: 2px solid #04d9ff;
+            border-radius: 5px;
+            width: 90%;
+            max-width: 500px;
+        }
+        #submitAnswer, #submitAnswerTappa2, #submitAnswerTappa3, #submitAnswerTappa4, #submitAnswerTappa5, #submitAnswerTappa6, #submitAnswerTappa7 {
+            margin-top: 30px;
+            background-color: #0800f5;
+            font-size: 2rem;
+            padding: 20px 40px;
+            border: none;
+            border-radius: 20px;
+            color: rgb(0, 0, 0);
+            cursor: pointer;
+        }
+        #submitAnswer:hover, #submitAnswerTappa2:hover, #submitAnswerTappa3:hover, #submitAnswerTappa4:hover, #submitAnswerTappa5:hover, #submitAnswerTappa6:hover, #submitAnswerTappa7:hover {
+            background-color: #00bfff;
+        }
+        #feedback, #feedbackTappa2, #feedbackTappa3, #feedbackTappa4, #feedbackTappa5, #feedbackTappa6, #feedbackTappa7 {
+            margin-top: 60px;
+            display: none;
+        }
+        #correctFeedback, #correctFeedbackTappa2, #correctFeedbackTappa3, #correctFeedbackTappa4,  #correctFeedbackTappa5,  #correctFeedbackTappa6,  #correctFeedbackTappa7 {
+            color: #00b9f7;
+            font-size: 1.2rem;
+        }
+        #incorrectFeedback, #incorrectFeedbackTappa2, #incorrectFeedbackTappa3, #incorrectFeedbackTappa4, #incorrectFeedbackTappa5 {
+            color: #000000;
+            font-size: 1.2rem;
+        }
+        #image, #imageTappa2, #imageTappa3, #imageTappa4, #imageTappa5, #imageTappa6, #imageTappa7 {
+            display: none;
+            margin-top: 60px;
+        }
+        #image img, #imageTappa2 img, #imageTappa3 img, #imageTappa4 img, #imageTappa5 img, #imageTappa6 img, #imageTappa7 img {
+            width: 100%;
+            max-width: 500px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        #nextTappa, #nextTappa2, #nextTappa3, #nextTappa4, #nextTappa5, #nextTappa6, #nextTappa7 {
+            margin-top: 30px;
+            display: block;
+            margin: 30px auto;
+        }
+        #tappa2Section, #tappa3Section, #tappa4Section,  #tappa5Section,  #tappa6Section,  #tappa7Section {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Benvenuto nel Gioco "Trova il Luogo"!</h1>
+    <button id="startGame">COMINCIA IL GIOCO</button>
+
+    <div id="audioSection">
+        <audio id="audioTappa" controls>
+            <source src="audio/tappa1.mp3" type="audio/mpeg">
+            Il tuo browser non supporta l'elemento audio.
+        </audio>
+        <p id="audioText">Ascolta attentamente e scrivi il nome del luogo  <br>TAPPA 1 <br>
+Sotto il cielo che il tempo ha inciso,<br>
+tra statue mute e storia in posa,<br>
+cerca lo sguardo del potere deciso,<br>
+dove il David non riposa!</p>
+        <input type="text" id="userInput" placeholder="Scrivi il luogo qui" />
+        <button id="submitAnswer">Invia risposta</button>
+        <div id="feedback">
+            <p id="correctFeedback">Risposta corretta!</p>
+            <p id="incorrectFeedback">Risposta sbagliata. Riprova!</p>
+        </div>
+        <div id="image">
+            <img src="img/piazza-signoria.jpg" alt="Piazza della Signoria" />
+        </div>
+    </div>
+
+    <div id="congratulazioni" style="display: none; text-align: center; margin-top: 20px;">
+        <h2>🎉 Congratulazioni! 🎉</h2>
+        <button id="nextTappa">Vai alla Tappa 2</button>
+    </div>
+
+    <div id="tappa2Section" style="display: none;">
+        <div id="audioSectionTappa2">
+            <audio id="audioTappa2" controls>
+                <source src="audio/tappa2.mp3" type="audio/mpeg">
+                Il tuo browser non supporta l'elemento audio.
+            </audio>
+            <p id="audioTextTappa2">Ascolta attentamente e scrivi il nome del luogo <br>TAPPA 2<br>
+Dove l’Arno abbraccia l’oro,<br>
+e i bottegai sussurrano al vento,<br>
+cammina lento, senza decoro,<br>
+tra archi antichi e il firmamento.</p>
+            <input type="text" id="userInputTappa2" placeholder="Scrivi il luogo qui" />
+            <button id="submitAnswerTappa2">Invia risposta</button>
+            <div id="feedbackTappa2">
+                <p id="correctFeedbackTappa2">Risposta corretta per Tappa 2!</p>
+                <p id="incorrectFeedbackTappa2">Risposta sbagliata per Tappa 2. Riprova!</p>
+            </div>
+            <div id="imageTappa2">
+                <img src="img/ponte-vecchio.jpg" alt="Ponte Vecchio"  />
+            </div>
+        </div>
+        <button id="nextTappa2" style="display: none;">Vai alla Tappa 3</button>
+    </div>
+
+    <div id="tappa3Section" style="display: none;">
+        <div id="audioSectionTappa3">
+            <audio id="audioTappa3" controls>
+                <source src="audio/tappa3.mp3" type="audio/mpeg">
+                Il tuo browser non supporta l'elemento audio.
+            </audio>
+            <p id="audioTextTappa3">Ascolta attentamente e scrivi il nome del luogo <br>TAPPA 3<br>  
+Il cuore batte tra marmo e cielo,<br>
+gigante bianco dal volto fiorito,<br>
+alza lo sguardo, segui il velo<br>
+che Brunelleschi ha scolpito.</p>
+            <input type="text" id="userInputTappa3" placeholder="Scrivi il luogo qui" />
+            <button id="submitAnswerTappa3">Invia risposta</button>
+            <div id="feedbackTappa3">
+                <p id="correctFeedbackTappa3">Risposta corretta per Tappa 3!</p>
+                <p id="incorrectFeedbackTappa3">Risposta sbagliata per Tappa 3. Riprova!</p>
+            </div>
+            <div id="imageTappa3">
+                <img src="img/duomo.jpg" alt="Duomo di Firenze"  />
+            </div>
+        </div>
+        <button id="nextTappa3" style="display: none;">Vai alla Tappa 4</button>
+    </div>
+
+    <div id="tappa4Section" style="display: none;">
+        <div id="audioSectionTappa4">
+          <audio id="audioTappa4" controls>
+            <source src="audio/tappa4.mp3" type="audio/mpeg">
+            Il tuo browser non supporta l'elemento audio.
+          </audio>
+          <p id="audioTextTappa4">Ascolta attentamente e scrivi il nome del luogo <br>TAPPA 4<br>
+ Oltre il ponte, dove il sole si piega,<br>
+vive un palazzo dal passo regale.<br>
+Tra mura dense di seta e di lega,<br>
+cerca il silenzio che nulla vale.</p>
+          <input type="text" id="userInputTappa4" placeholder="Scrivi il luogo qui" class="input-risposta" />
+          <button id="submitAnswerTappa4">Invia risposta</button>
+          <div id="feedbackTappa4">
+            <p id="correctFeedbackTappa4" style="display: none;">Risposta corretta!</p>
+            <p id="incorrectFeedbackTappa4" style="display: none;">Risposta sbagliata. Riprova!</p>
+          </div>
+          <div id="imageTappa4">
+            <img src="img/palazzo-pitti.jpg" alt="Palazzo Pitti" />
+          </div>
+        </div>
+        <button id="nextTappa4" style="display: none;">Vai alla Tappa 5</button>
+      </div>
+
+      <div id="tappa5Section" style="display: none;">
+        <div id="audioSectionTappa5">
+          <audio id="audioTappa5" controls>
+            <source src="audio/tappa5.mp3" type="audio/mpeg">
+            Il tuo browser non supporta l'elemento audio.
+          </audio>
+      
+          <p id="audioTextTappa5">Ascolta attentamente e scrivi il nome del luogo <br>TAPPA 5<br>
+            Lucido il muso, da mille carezze,<br>
+            porta fortuna a chi lo accarezza.<br>
+            Ma solo chi l’oro nella bocca farà scivolare,<br>
+            potrà l’indizio segreto trovare.
+          </p>
+      
+          <input type="text" id="userInputTappa5" placeholder="Scrivi il luogo qui" class="input-risposta" />
+          <button id="submitAnswerTappa5">Invia risposta</button>
+      
+          <div id="feedbackTappa5">
+            <p id="correctFeedbackTappa5" style="display: none;">Risposta corretta!</p>
+            <p id="incorrectFeedbackTappa5" style="display: none;">Risposta sbagliata. Riprova!</p>
+          </div>
+      
+          <div id="imageTappa5" style="display: none;">
+            <img src="img/Il-porcellino.jpg" alt="Il Porcellino" />
+          </div>
+        </div>
+      
+        <button id="nextTappa5" style="display: none;">Vai alla Tappa 6</button>
+      </div>
+
+      <div id="tappa6Section" style="display: none;">
+        <div id="audioSectionTappa6">
+          <audio id="audioTappa6" controls>
+            <source src="audio/tappa6.mp3" type="audio/mpeg">
+            Il tuo browser non supporta l'elemento audio.
+          </audio>
+      
+          <p id="audioTextTappa6">Ascolta attentamente e scrivi il nome del luogo <br>TAPPA 6<br>
+Lì dormono poeti e pensatori,<br>
+tra lapidi, pace e memoria eterna.<br>
+Ascolta l’eco di mille cuori<br>
+tra chi la gloria seppe governar.</p>
+      
+          <input type="text" id="userInputTappa6" placeholder="Scrivi il luogo qui" class="input-risposta" />
+          <button id="submitAnswerTappa6">Invia risposta</button>
+      
+          <div id="feedbackTappa6">
+            <p id="correctFeedbackTappa6" style="display: none;">Risposta corretta!</p>
+            <p id="incorrectFeedbackTappa6" style="display: none;">Risposta sbagliata. Riprova!</p>
+          </div>
+      
+          <div id="imageTappa6" style="display: none;">
+            <img src="img/Piazza-Santa-Croce.jpg" alt="Piazza Santa Croce" />
+          </div>
+        </div>
+
+        <button id="nextTappa6" style="display: none;">Vai alla Tappa 7</button>
+      </div>
+
+      <div id="tappa7Section" style="display: none;">
+        <div id="audioSectionTappa7">
+          <audio id="audioTappa7" controls>
+            <source src="audio/tappa7.mp3" type="audio/mpeg">
+            Il tuo browser non supporta l'elemento audio.
+          </audio>
+      
+          <p id="audioTextTappa7">Ascolta attentamente e scrivi il nome del luogo <br>TAPPA 7<br>
+Dal colle dove Firenze si svela,<br>
+abbraccia il giorno con occhi nuovi.<br>
+Ultima prova, la mente rivela<br>
+ciò che il viaggio davvero muovi.</p>
+      
+          <input type="text" id="userInputTappa7" placeholder="Scrivi il luogo qui" class="input-risposta" />
+          <button id="submitAnswerTappa7">Invia risposta</button>
+      
+          <div id="feedbackTappa7">
+            <p id="correctFeedbackTappa7" style="display: none;">Risposta corretta!</p>
+            <p id="incorrectFeedbackTappa7" style="display: none;">Risposta sbagliata. Riprova!</p>
+          </div>
+      
+          <div id="imageTappa7" style="display: none;">
+            <img src="img/Piazzale-michelangelo.jpg" alt="Piazzale Michelangelo" />
+          </div>    
+          <button id="nextTappa7" style="display: none;">🎉 Complimenti, esploratore di Firenze! 🎉
+            Hai completato tutte le tappe del nostro viaggio! 🗺️
+            Hai ascoltato, indovinato e scoperto i luoghi più iconici della città. 🏛️✨
+            Grazie per aver giocato con noi! 💚
+            Che la tua curiosità ti porti sempre lontano! 🌟✈️</button>
+</div>
+   
+    <script>
+        // Gestisce l'avvio del gioco
+        document.getElementById('startGame').addEventListener('click', function() {
+            document.getElementById('audioSection').style.display = 'block';
+            document.getElementById('audioTappa').play();
+        });
+
+        // Gestisce la risposta della Tappa 1
+        document.getElementById('submitAnswer').addEventListener('click', function() {
+            const userInput = document.getElementById('userInput').value.trim().toLowerCase();
+            const correctAnswer = 'Piazza della Signoria';
+
+            if (userInput === correctAnswer.toLowerCase()) {
+                document.getElementById('correctFeedback').style.display = 'block';
+                document.getElementById('incorrectFeedback').style.display = 'none';
+                document.getElementById('image').style.display = 'block';
+                document.getElementById('congratulazioni').style.display = 'block';
+            } else {
+                document.getElementById('incorrectFeedback').style.display = 'block';
+                document.getElementById('correctFeedback').style.display = 'none';
+                document.getElementById('image').style.display = 'none';
+            }
+        });
+
+        // Vai alla Tappa 2 dopo la risposta corretta della Tappa 1
+        document.getElementById('nextTappa').addEventListener('click', function() {
+            document.getElementById('congratulazioni').style.display = 'none';
+            document.getElementById('tappa2Section').style.display = 'block';
+            document.getElementById('audioSectionTappa2').style.display = 'block';
+            document.getElementById('audioTappa2').play();
+        });
+
+        // Gestisce la risposta della Tappa 2
+        document.getElementById('submitAnswerTappa2').addEventListener('click', function() {
+            const userInputTappa2 = document.getElementById('userInputTappa2').value.trim().toLowerCase();
+            const correctAnswerTappa2 = 'Ponte Vecchio';
+
+            if (userInputTappa2 === correctAnswerTappa2.toLowerCase()) {
+                document.getElementById('correctFeedbackTappa2').style.display = 'block';
+                document.getElementById('incorrectFeedbackTappa2').style.display = 'none';
+                document.getElementById('imageTappa2').style.display = 'block';
+                document.getElementById('nextTappa2').style.display = 'block';
+            } else {
+                document.getElementById('incorrectFeedbackTappa2').style.display = 'block';
+                document.getElementById('correctFeedbackTappa2').style.display = 'none';
+                document.getElementById('imageTappa2').style.display = 'none';
+            }
+        });
+
+        // Vai alla Tappa 3 dopo la risposta corretta della Tappa 2
+        document.getElementById('nextTappa2').addEventListener('click', function() {
+            document.getElementById('tappa2Section').style.display = 'block';  // Tappa 2 non nasconde più
+            document.getElementById('tappa3Section').style.display = 'block';
+            document.getElementById('audioSectionTappa3').style.display = 'block';
+            document.getElementById('audioTappa3').play();
+        });
+
+
+        document.getElementById('submitAnswerTappa3').addEventListener('click', function() {
+            const userInputTappa3 = document.getElementById('userInputTappa3').value.trim().toLowerCase();
+            const correctAnswerTappa3 = 'duomo di firenze';
+
+            if (userInputTappa3 === correctAnswerTappa3.toLowerCase()) {
+                document.getElementById('correctFeedbackTappa3').style.display = 'block';
+                document.getElementById('incorrectFeedbackTappa3').style.display = 'none';
+                document.getElementById('imageTappa3').style.display = 'block';
+                document.getElementById('nextTappa3').style.display = 'block';
+            } else {
+                document.getElementById('incorrectFeedbackTappa3').style.display = 'block';
+                document.getElementById('correctFeedbackTappa3').style.display = 'none';
+                document.getElementById('imageTappa3').style.display = 'none';
+            }
+        });
+
+
+        document.getElementById('nextTappa3').addEventListener('click', function() {
+            document.getElementById('tappa3Section').style.display = 'block';  // Tappa 2 non nasconde più
+            document.getElementById('tappa4Section').style.display = 'block';
+            document.getElementById('audioSectionTappa4').style.display = 'block';
+            document.getElementById('audioTappa4').play();
+        });
+
+        document.getElementById('submitAnswerTappa4').addEventListener('click', function() {
+    const userInputTappa4 = document.getElementById('userInputTappa4').value.trim().toLowerCase();
+    const correctAnswerTappa4 = 'Palazzo Pitti';
+
+    if (userInputTappa4 === correctAnswerTappa4.toLowerCase()) {
+        document.getElementById('correctFeedbackTappa4').style.display = 'block';
+        document.getElementById('incorrectFeedbackTappa4').style.display = 'none';
+        document.getElementById('imageTappa4').style.display = 'block';
+        document.getElementById('nextTappa4').style.display = 'block';
+    } else {
+        document.getElementById('incorrectFeedbackTappa4').style.display = 'block';
+        document.getElementById('correctFeedbackTappa4').style.display = 'none';
+        document.getElementById('imageTappa4').style.display = 'none';
+    }
+});
+
+
+        document.getElementById('nextTappa4').addEventListener('click', function() {
+            document.getElementById('tappa4Section').style.display = 'block';  // Tappa 2 non nasconde più
+            document.getElementById('tappa5Section').style.display = 'block';
+            document.getElementById('audioSectionTappa5').style.display = 'block';
+            document.getElementById('audioTappa5').play();
+        });
+
+        document.getElementById('submitAnswerTappa5').addEventListener('click', function() {
+    const userInputTappa5 = document.getElementById('userInputTappa5').value.trim().toLowerCase();
+    const correctAnswerTappa5 = 'Il Porcellino';
+
+    if (userInputTappa5 === correctAnswerTappa5.toLowerCase()) {
+        document.getElementById('correctFeedbackTappa5').style.display = 'block';
+        document.getElementById('incorrectFeedbackTappa5').style.display = 'none';
+        document.getElementById('imageTappa5').style.display = 'block';
+        document.getElementById('nextTappa5').style.display = 'block';
+    } else {
+        document.getElementById('incorrectFeedbackTappa5').style.display = 'block';
+        document.getElementById('correctFeedbackTappa5').style.display = 'none';
+        document.getElementById('imageTappa5').style.display = 'none';
+    }
+});
+
+
+        document.getElementById('nextTappa5').addEventListener('click', function() {
+            document.getElementById('tappa5Section').style.display = 'block';  // Tappa 2 non nasconde più
+            document.getElementById('tappa6Section').style.display = 'block';
+            document.getElementById('audioSectionTappa6').style.display = 'block';
+            document.getElementById('audioTappa6').play();
+        });
+
+        document.getElementById('submitAnswerTappa6').addEventListener('click', function() {
+    const userInputTappa6 = document.getElementById('userInputTappa6').value.trim().toLowerCase();
+    const correctAnswerTappa6 = 'Piazza Santa Croce';
+
+    if (userInputTappa6 === correctAnswerTappa6.toLowerCase()) {
+        document.getElementById('correctFeedbackTappa6').style.display = 'block';
+        document.getElementById('incorrectFeedbackTappa6').style.display = 'none';
+        document.getElementById('imageTappa6').style.display = 'block';
+        document.getElementById('nextTappa6').style.display = 'block';
+    } else {
+        document.getElementById('incorrectFeedbackTappa6').style.display = 'block';
+        document.getElementById('correctFeedbackTappa6').style.display = 'none';
+        document.getElementById('imageTappa6').style.display = 'none';
+    }
+});
+
+
+        document.getElementById('nextTappa6').addEventListener('click', function() {
+            document.getElementById('tappa6Section').style.display = 'block';  // Tappa 2 non nasconde più
+            document.getElementById('tappa7Section').style.display = 'block';
+            document.getElementById('audioSectionTappa7').style.display = 'block';
+            document.getElementById('audioTappa7').play();
+        });
+
+        document.getElementById('submitAnswerTappa7').addEventListener('click', function() {
+    const userInputTappa7 = document.getElementById('userInputTappa7').value.trim().toLowerCase();
+    const correctAnswerTappa7 = 'Piazzale Michelangelo';
+
+    if (userInputTappa7 === correctAnswerTappa7.toLowerCase()) {
+        document.getElementById('correctFeedbackTappa7').style.display = 'block';
+        document.getElementById('incorrectFeedbackTappa7').style.display = 'none';
+        document.getElementById('imageTappa7').style.display = 'block';
+        document.getElementById('nextTappa7').style.display = 'block';
+    } else {
+        document.getElementById('incorrectFeedbackTappa7').style.display = 'block';
+        document.getElementById('correctFeedbackTappa7').style.display = 'none';
+        document.getElementById('imageTappa7').style.display = 'none';
+    }
+});
+    </script>
+</body>
+</html>
